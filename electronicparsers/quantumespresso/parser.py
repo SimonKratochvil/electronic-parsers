@@ -36,6 +36,7 @@ from runschema.method import (
     BasisSetContainer,
     AtomParameters,
     KMesh,
+    Scf,
 )
 from runschema.system import System, Atoms
 from runschema.calculation import (
@@ -3248,7 +3249,10 @@ class QuantumEspressoParser:
         sec_method.dft = sec_dft
         sec_electronic = Electronic()
         sec_method.electronic = sec_electronic
-
+        if (threshold := run.get_header('scf_threshold_energy_change')) is not None:
+            sec_method.scf = Scf(threshold_energy_change = threshold)
+            sec_scf = sec_method.scf
+            sec_scf.threshold_energy_change = run.get_header('scf_threshold_energy_change')
         starting_magnetization = run.get_header('starting_magnetization')
         spin_orbit_mode = run.get_header('spin_orbit_mode')
         if starting_magnetization is not None:
@@ -3330,7 +3334,6 @@ class QuantumEspressoParser:
 
         # other method variables
         names = [
-            'scf_threshold_energy_change',
             'x_qe_core_charge_realspace',
             'x_qe_exact_exchange_fraction',
             'x_qe_diagonalization_algorithm',
