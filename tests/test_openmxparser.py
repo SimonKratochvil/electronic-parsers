@@ -184,9 +184,9 @@ def test_AlN(parser):
     )
 
 
-def test_C2N2(parser):
+def test_C2H2(parser):
     """
-    Molecular dynamics using the Nose-Hover thermostat for simple N2H2 molecule
+    Molecular dynamics using the Nose-Hover thermostat for simple C2H2 molecule
     """
     archive = EntryArchive()
     parser.parse('tests/data/openmx/C2H2_molecular_dynamics/C2H2.out', archive, logging)
